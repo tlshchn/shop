@@ -56,20 +56,23 @@ public class ProductService {
 
     @Transactional
     public void fillDefaultProducts() {
-        Category shoesCategory = categoryRepository.findByName("Обувь");
-        List<Image> shoesImages = new ArrayList<>();
-        Product product1 = new Product();
-        Image imageShoes = new Image();
-        imageShoes.setProduct(product1);
-        imageShoes.setFileName("shoe1.jpg");
-        shoesImages.add(imageShoes);
-        product1.setTitle("Тапки мужские кожаные");
-        product1.setDescription("Защитные Водонепроницаемые Нескользящие");
-        product1.setPrice(982);
-        product1.setWarehouse("China");
-        product1.setCategory(shoesCategory);
-        product1.setSeller("Дядя Лиао");
-        product1.setImageList(shoesImages);
-        productRepository.save(product1);
+        boolean isEmptyProducts = productRepository.findAll().isEmpty();
+        if (isEmptyProducts) {
+            Category shoesCategory = categoryRepository.findByName("Обувь");
+            List<Image> shoesImages = new ArrayList<>();
+            Product product1 = new Product();
+            Image imageShoes = new Image();
+            imageShoes.setProduct(product1);
+            imageShoes.setFileName("shoe1.jpg");
+            shoesImages.add(imageShoes);
+            product1.setTitle("Тапки мужские кожаные");
+            product1.setDescription("Защитные Водонепроницаемые Нескользящие");
+            product1.setPrice(982);
+            product1.setWarehouse("China");
+            product1.setCategory(shoesCategory);
+            product1.setSeller("Дядя Лиао");
+            product1.setImageList(shoesImages);
+            productRepository.save(product1);
+        }
     }
 }
